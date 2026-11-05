@@ -1,0 +1,21 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Your personal data: never commit
+profile.md
+/config.yaml
+/*.yaml
+!/config.example.yaml
+seen_*.csv
+output/
+*.pdf
+*.docx
+*.doc
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,108 @@
+# ==================================================================
+# job-shortlist config. The setup script copies this to config.yaml;
+# edit config.yaml, not this file. Full reference: README.md
+#
+# Format: two spaces, dash, space, text in quotes. Use spaces, not Tab.
+# Don't delete section names (the words ending in ':'). To turn a
+# filter off, delete its items and leave the name.
+# ==================================================================
+
+# ---------------- WHERE AND WHAT TO SEARCH ----------------
+
+# Job boards: linkedin, indeed, naukri, glassdoor, google
+# (naukri is India only; google often returns nothing, see README)
+sites:
+  - linkedin
+  - indeed
+  - naukri
+
+# Country used by Indeed/Glassdoor and for "Remote" searches
+country: "India"
+
+# Only jobs posted in the last N hours (24 = 1 day, 72 = 3 days, 168 = 7 days)
+hours_old: 72
+
+# Max results per site, per search term, per location
+results_per_search: 25
+
+# Job titles to search. Every term is searched in every location,
+# so 6 terms x 4 locations = 24 searches (about 10-15 minutes).
+search_terms:
+  - "Data Analyst"
+  - "Business Intelligence Analyst"
+  - "Power BI Developer"
+  - "Product Analyst"
+
+# Cities. "Remote" searches remote jobs in the country above.
+locations:
+  - "Bengaluru"
+  - "Mumbai"
+  - "Remote"
+
+# ---------------- MUST MATCH (optional) ----------------
+
+# Keep a job only if its TITLE contains one of these. Empty = keep all.
+require_title_words: []
+
+# Keep a job only if its title OR description contains one of these. Empty = keep all.
+require_any_words: []
+
+# ---------------- DROP ----------------
+
+# Drop a job if its TITLE contains any of these (case-insensitive)
+exclude_title_words:
+  - " intern "
+  - "internship"
+  - "fresher"
+  - "trainee"
+  - "sales executive"
+  - "telecaller"
+
+# Drop a job if its DESCRIPTION contains any of these
+# (the first three catch recruiters who hide the real employer)
+exclude_description_phrases:
+  - "hiring for mnc"
+  - "our client is a leading"
+  - "leading it company"
+
+# Drop these companies (partial names are fine)
+exclude_companies: []
+
+# Only applies when a job lists its salary (most don't). 0 = no filter.
+min_salary_lpa: 0
+
+# ---------------- RANKING ----------------
+
+# A title containing one of these gets +5 pre-score (ranked near the top)
+priority_titles:
+  - "data analyst"
+  - "power bi"
+
+# Each of these found in the title or description adds +1 pre-score
+boost_words:
+  - "sql"
+  - "power bi"
+  - "tableau"
+  - "python"
+  - "excel"
+  - "dashboard"
+
+# ---------------- FILES ----------------
+
+# Output files: output/<output_prefix>_YYYY-MM-DD.csv and .html
+output_prefix: "jobs"
+
+# Remembers jobs already shown so each run lists only new ones.
+# Give each config its own file so searches don't hide each other's jobs.
+seen_file: "seen_jobs.csv"
+
+# ---------------- ADVANCED ----------------
+
+# Fetch full LinkedIn descriptions (slower, but filters and scoring work better)
+fetch_linkedin_descriptions: true
+
+# Random pause between searches, in seconds (minimum 2). Higher = fewer blocks.
+pause_seconds: [3, 6]
+
+# Used only when Claude scores jobs: pay outside this range is flagged.
+score_salary_lpa: [0, 0]

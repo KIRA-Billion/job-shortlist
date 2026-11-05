@@ -1,0 +1,80 @@
+# Example: a focused second search using the MUST MATCH filters.
+# Finds engineer/developer roles whose title or description mentions AI,
+# over the last 7 days, with its own output files and seen list.
+#
+# Run it with:
+#   Windows:   run.bat --config examples\ai-roles.yaml
+#   Mac/Linux: ./run.sh --config examples/ai-roles.yaml
+# (or copy it next to config.yaml, rename it, and edit your copy)
+
+sites:
+  - linkedin
+  - indeed
+  - naukri
+  - glassdoor
+
+country: "India"
+hours_old: 168
+results_per_search: 30
+
+search_terms:
+  - "AI Engineer"
+  - "GenAI Developer"
+  - "LLM Engineer"
+  - "Machine Learning Engineer"
+
+locations:
+  - "Bengaluru"
+  - "Hyderabad"
+  - "Remote"
+
+# Title must contain one of these...
+require_title_words:
+  - "engineer"
+  - "developer"
+
+# ...and the title or description must mention AI.
+# Short words get spaces or punctuation around them so "ai" doesn't match "maintain".
+require_any_words:
+  - " ai "
+  - " ai,"
+  - " ai."
+  - " ai-"
+  - "(ai)"
+  - "artificial intelligence"
+  - "genai"
+  - "generative ai"
+  - "llm"
+  - "machine learning"
+  - " rag "
+
+exclude_title_words:
+  - " intern "
+  - "internship"
+  - "fresher"
+  - "trainee"
+  - "sales"
+
+exclude_description_phrases:
+  - "hiring for mnc"
+  - "our client is a leading"
+
+exclude_companies: []
+
+min_salary_lpa: 0
+
+priority_titles:
+  - "llm"
+  - "genai"
+
+boost_words:
+  - "python"
+  - "rag"
+  - "langchain"
+  - "vector"
+  - "fastapi"
+
+output_prefix: "ai_roles"
+seen_file: "seen_ai_roles.csv"
+
+score_salary_lpa: [0, 0]
