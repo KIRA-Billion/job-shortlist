@@ -39,10 +39,17 @@ locations:
   - "Mumbai"
   - "Remote"
 
-# ---------------- MUST MATCH (optional) ----------------
+# ---------------- MUST MATCH (recommended) ----------------
 
 # Keep a job only if its TITLE contains one of these. Empty = keep all.
-require_title_words: []
+# Job sites match searches loosely, so without this most results are other roles.
+# List the words your target titles share; add one if a good job gets dropped.
+require_title_words:
+  - "analyst"
+  - "power bi"
+  - "business intelligence"
+  - "reporting"
+  - "insights"
 
 # Keep a job only if its title OR description contains one of these. Empty = keep all.
 require_any_words: []
@@ -56,7 +63,12 @@ exclude_title_words:
   - "fresher"
   - "trainee"
   - "sales executive"
+  - "sales manager"
   - "telecaller"
+  - "recruit"
+  - "director"
+  - "head of"
+  - "vice president"
 
 # Drop a job if its DESCRIPTION contains any of these
 # (the first three catch recruiters who hide the real employer)

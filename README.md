@@ -92,7 +92,7 @@ Results are written to `output/jobs_<date>.html` and `.csv`.
 | `results_per_search` | `25` | Max results per site, per search term, per location. |
 | `search_terms` | required | Job titles to search. Every term is searched in every location. |
 | `locations` | required | Cities, or `"Remote"`. |
-| `require_title_words` | empty (keep all) | Keep a job only if its **title** contains at least one of these. |
+| `require_title_words` | empty (keep all) | Keep a job only if its **title** contains at least one of these. **Recommended**: see [Keep the list relevant](#keep-the-list-relevant). |
 | `require_any_words` | empty (keep all) | Keep a job only if its **title or description** contains at least one of these. |
 | `exclude_title_words` | see example | Drop a job if its **title** contains any of these. |
 | `exclude_description_phrases` | see example | Drop a job if its **description** contains any of these (good for recruiters who hide the employer). |
@@ -109,6 +109,16 @@ Results are written to `output/jobs_<date>.html` and `.csv`.
 **Matching rules:** all word lists are case-insensitive and match anywhere in the text, including inside longer words. The text is padded with a space at each end. So for short words, add spaces: `" ai "` matches "AI" as a word but not "maintain", and `" intern "` matches "Intern" but not "International".
 
 **How long a run takes:** about (terms × locations) × 20–40 seconds. For example, 6 terms × 4 locations ≈ 10–15 minutes.
+
+### Keep the list relevant
+
+Job sites match searches loosely. A search for "Automation Specialist" also returns developer, architect, sales and plenty of unrelated jobs. In one real week of searches for support and implementation roles, **only about a quarter of the 1,109 new jobs were in the target roles** until a must-match title filter was added. With it, the list dropped to 203, all relevant.
+
+- **`require_title_words` is your main filter.** List the words your target titles share (for example `support`, `implementation`, `customer success`). Exclude lists only remove what you think of in advance; this keeps only what you want.
+- **Add common noise to `exclude_title_words`**: `developer`, `architect`, `director`, `head of`, `recruit` and sales titles, unless those are your roles.
+- **Pre-score is not a ranking of fit.** It counts keywords, so ads that repeat buzzwords (often engineering roles) score highest. Put your role words in `priority_titles` so the right titles rank first, and keep `boost_words` for skills.
+- **Check what gets dropped now and then.** If a good job with an unusual title is filtered out, add a word from its title to `require_title_words`.
+- **Score everything that passes the filters**, not just the top of the pre-score list. That's what [`CLAUDE.md`](CLAUDE.md) tells Claude Code to do.
 
 ### Several searches
 

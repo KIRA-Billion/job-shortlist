@@ -23,7 +23,7 @@ Python: use `.venv\Scripts\python` on Windows and `.venv/bin/python` on Mac/Linu
 ## When the user says "score today's jobs" (or "score jobs")
 1. Read `profile.md` fully.
 2. Open the newest `output/<output_prefix>_YYYY-MM-DD.csv` for the config they mean (default prefix `jobs`).
-3. Score the top 40 by `prescore`, PLUS every other job whose title contains one of that config's `priority_titles`. If they ask to score all, score all. For each job:
+3. Score EVERY job in the file, best `prescore` first (`require_title_words` in the config should already limit it to target roles). If the file has more than 250 jobs, score the 250 with the highest prescore, say how many were left, and suggest tightening `require_title_words` / `exclude_title_words`. Don't score only the top N by prescore: pre-score counts keywords, so it favours buzzword-heavy ads over the best-fit roles. For each job:
    - Read title, company, location, salary and description.
    - Decide **Apply**, **Maybe** or **Skip** using `profile.md`.
    - Salary: if listed, use it. If not, give an estimate range in LPA with confidence (low/medium). If the config's `score_salary_lpa` is not `[0, 0]`, say whether pay is in, below or above that range.
